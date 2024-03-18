@@ -2,6 +2,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
+import { SearchProvider } from "./context/SearchContext";
 
 // Routes
 const router = createBrowserRouter([
@@ -17,7 +18,11 @@ const router = createBrowserRouter([
 
 //main app
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <SearchProvider>
+      <RouterProvider router={router} />;
+    </SearchProvider>
+  );
 }
 
 export default App;
