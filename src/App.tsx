@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <div>my app</div>
+      <div className=" bg-slate-500">my app</div>
     </>
   );
 }
