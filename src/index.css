@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-gradient {
+  background-image: linear-gradient(
+    to right,
+    #ea4335,
+    #fbbc05,
+    #34a854,
+    #4285f4
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
