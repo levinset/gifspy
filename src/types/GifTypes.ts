@@ -1,4 +1,9 @@
 //main type
+export interface ExtendedGifType extends GifType {
+  isFavoritePage: boolean;
+  handleDeleteFavorite?: (id: string) => void;
+}
+//
 export interface GifType {
   type: string;
   id: string;

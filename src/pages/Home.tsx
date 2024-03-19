@@ -7,11 +7,9 @@ import GifsView from "../sections/home/GifsView";
 export default function Home() {
   return (
     <>
-      <div>
-        <NavBar />
-        <Hero />
-        <GifsView />
-      </div>
+      <NavBar />
+      <Hero />
+      <GifsView />
     </>
   );
 }

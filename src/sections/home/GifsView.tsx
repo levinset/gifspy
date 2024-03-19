@@ -14,8 +14,16 @@ export default function GifsView() {
   const { searchData } = useSearch();
   const { switchStatus } = useToggleSwitch();
   //queries
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
-    useGetAllData(switchStatus, searchData);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+    isLoading,
+    isError,
+    error,
+  } = useGetAllData(switchStatus, searchData);
 
   // Load more data when user scrolls to the bottom
   useEffect(() => {
@@ -54,6 +62,8 @@ export default function GifsView() {
             )}
           </Masonry>
         )}
+        {isLoading && <p>Loading</p>}
+        {isError && <p>{error.message} </p>}
         {isFetchingNextPage && <p>Loading...</p>}
         {!hasNextPage && <p>No more GIFs to load</p>}
       </div>
