@@ -1,7 +1,7 @@
 //import libraries and components
 import GifCard from "../../components/general/GifCard";
 import { useSearch } from "../../hooks/context/useSerach";
-import { useGetAllTrends } from "../../hooks/query/useGetAllTrends";
+import { useGetAllData } from "../../hooks/query/useGetAllData";
 import { GifType } from "../../types/GifTypes";
 import Masonry from "react-masonry-css";
 import { breakpointColumns } from "../../config/breakpointColumns";
@@ -15,7 +15,7 @@ export default function GifsView() {
   const { switchStatus } = useToggleSwitch();
   //queries
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
-    useGetAllTrends(switchStatus);
+    useGetAllData(switchStatus, searchData);
 
   // Load more data when user scrolls to the bottom
   useEffect(() => {
@@ -36,12 +36,11 @@ export default function GifsView() {
   // Refetch data when switchStatus changes
   useEffect(() => {
     refetch();
-  }, [switchStatus, refetch]);
+  }, [switchStatus, refetch, searchData]);
 
   return (
     <div className="bg-[#212121] ">
       <div className="container pt-10 mx-auto">
-        {searchData && <p>{searchData}</p>}
         {data && (
           <Masonry
             className="flex flex-row w-auto"

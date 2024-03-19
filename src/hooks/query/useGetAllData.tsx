@@ -2,9 +2,15 @@ import axios from "axios";
 import { useInfiniteQuery, keepPreviousData } from "@tanstack/react-query";
 
 // Function to fetch trend gifs
-const getAllTrends = async (offset: number, showStatus: string) => {
+const getAllData = async (
+  offset: number,
+  showStatus: string,
+  searchData: string
+) => {
   // API URL
-  const url = `https://api.giphy.com/v1/${showStatus}/trending`;
+  const url = `https://api.giphy.com/v1/${showStatus}/${
+    searchData ? `search?q=${searchData}` : "trending"
+  }`;
   // API KEY as parameter
   const APIKEY = "vf7nDm11F3X2Pe63jIGjWWPiFCFCZXM8";
   const params = {
@@ -17,10 +23,10 @@ const getAllTrends = async (offset: number, showStatus: string) => {
 };
 
 // Custom hook for getting all trend gifs
-export function useGetAllTrends(switchStatus: string) {
+export function useGetAllData(switchStatus: string, searchData: string) {
   return useInfiniteQuery({
     queryKey: ["alltrend"],
-    queryFn: ({ pageParam }) => getAllTrends(pageParam, switchStatus),
+    queryFn: ({ pageParam }) => getAllData(pageParam, switchStatus, searchData),
     getNextPageParam: (lastPage, allPages) => {
       // Calculate the offset for the next page
       return lastPage.length ? allPages.length * 25 : undefined;
