@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import { SearchProvider } from "./context/SearchContext";
+import { ToggleSwitchProvider } from "./context/ToggleSwithContext";
 
 // Routes
 const router = createBrowserRouter([
@@ -20,7 +21,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <SearchProvider>
-      <RouterProvider router={router} />;
+      <ToggleSwitchProvider>
+        <RouterProvider router={router} />;
+      </ToggleSwitchProvider>
     </SearchProvider>
   );
 }

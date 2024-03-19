@@ -1,7 +1,7 @@
 //import libaraies and components
 import Hand from "../../assets/images/hand.png";
 import SearchBar from "../../components/home/SearchBar";
-import Switch from "../../components/home/Switch";
+import ToggleSwitch from "../../components/home/ToggleSwitch";
 
 //main component
 export default function Hero() {
@@ -26,7 +26,7 @@ export default function Hero() {
               <SearchBar />
             </div>
           </div>
-          <Switch />
+          <ToggleSwitch />
         </div>
       </div>
     </>

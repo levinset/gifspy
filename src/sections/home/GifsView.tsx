@@ -1,17 +1,21 @@
 //import libraries and components
 import GifCard from "../../components/general/GifCard";
 import { useSearch } from "../../hooks/context/useSerach";
-import { useGetAllTrendGifs } from "../../hooks/query/useGetAllTrendGifs";
+import { useGetAllTrends } from "../../hooks/query/useGetAllTrends";
 import { GifType } from "../../types/GifTypes";
 import Masonry from "react-masonry-css";
 import { breakpointColumns } from "../../config/breakpointColumns";
 import { useEffect } from "react";
+import { useToggleSwitch } from "../../hooks/context/useToggleSwith";
 
 //main component
 export default function GifsView() {
+  //context hooks
   const { searchData } = useSearch();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetAllTrendGifs();
+  const { switchStatus } = useToggleSwitch();
+  //queries
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
+    useGetAllTrends(switchStatus);
 
   // Load more data when user scrolls to the bottom
   useEffect(() => {
@@ -28,6 +32,11 @@ export default function GifsView() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  // Refetch data when switchStatus changes
+  useEffect(() => {
+    refetch();
+  }, [switchStatus, refetch]);
 
   return (
     <div className="bg-[#212121] ">
