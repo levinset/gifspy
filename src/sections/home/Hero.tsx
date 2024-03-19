@@ -26,7 +26,7 @@ export default function Hero() {
               <SearchBar />
             </div>
           </div>
-          <ToggleSwitch />
+          <ToggleSwitch position="justify-end" />
         </div>
       </div>
     </>

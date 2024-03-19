@@ -48,7 +48,9 @@ export default function GifsView() {
             breakpointCols={breakpointColumns}
           >
             {data.pages.map((page) =>
-              page.map((gif: GifType) => <GifCard {...gif} key={gif.id} />)
+              page.map((gif: GifType) => (
+                <GifCard isFavoritePage={false} {...gif} key={gif.id} />
+              ))
             )}
           </Masonry>
         )}
