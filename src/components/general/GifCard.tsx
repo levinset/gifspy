@@ -17,6 +17,7 @@ export default function GifCard(props: ExtendedGifType) {
   //use state hooks
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const [showEmbedModal, setShowEmbedModal] = useState<boolean>(false);
+
   //handle favorite
   const handleFavorite = () => {
     handleToggleFavourite(props.id);
@@ -79,10 +80,10 @@ export default function GifCard(props: ExtendedGifType) {
                 </>
               )}
             </button>
-            <button className=" hover:text-violet-600 hover:scale-110">
+            <button className=" hover:scale-125">
               <FaCode onClick={() => setShowEmbedModal(true)} />
             </button>
-            <button className=" hover:text-violet-600 hover:scale-110">
+            <button className=" hover:scale-125">
               <FaRegEye onClick={handleGifNavigation} />
             </button>
           </div>

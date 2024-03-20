@@ -16,20 +16,23 @@ export default function GifViewBig(props: GifType) {
     <>
       <div className="container w-full p-2 mx-auto text-white ">
         <div className="flex flex-row">
-          <div className="flex flex-col pt-8 pr-8 w-[20rem]  ">
+          <div className="flex flex-col pt-8 pr-8 w-[20rem] gap-5  ">
             <div className="flex flex-row gap-2 ">
-              <img className=" w-[4rem] " src={props.user.avatar_url} alt="" />
+              <img className=" w-[4rem] " src={props.user?.avatar_url} alt="" />
               <div className=" w-fit">
-                <p> {props.user.username} </p>
-                <p> {props.user.display_name} </p>
+                <p> {props.user?.username} </p>
+                <p> {props.user?.display_name} </p>
               </div>
             </div>
             <div>
-              <p> {props.user.description} </p>
+              {props.user.description && (
+                <p className="text-sm font-semibold">User Description:</p>
+              )}
+              <p> {props.user?.description} </p>
             </div>
           </div>
           <div className="flex flex-col justify-center w-full ">
-            <p> {props.title} </p>
+            <p> {props?.title} </p>
             <img src={props.images.original.url} alt="" />
           </div>
           <div className=" w-[10rem] ">

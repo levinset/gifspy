@@ -12,23 +12,25 @@ import { useEffect } from "react";
 
 //main component
 export default function GifPage() {
-  //scroll to top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   //get gif is
   const { id } = useParams();
   //queries
-  const { data: gifData } = useGetDataById(id);
+  const { data: gifData, refetch } = useGetDataById(id);
   const { data: relatedData } = useGetAllData("gifs", gifData && gifData.title);
   console.log(relatedData);
+  //hande change in id
+  useEffect(() => {
+    refetch();
+  }, [id, refetch]);
+  //scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   return (
     <>
       <NavBar />
-      <div className="mt-10 ">
-        <div className=" bg-slate-500 h-[10rem] "></div>
+      <div className="mt-20 ">
         <div className="container mx-auto ">
           {gifData &&
             gifData.map((gif: GifType) => <GifViewBig {...gif} key={gif.id} />)}

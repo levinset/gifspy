@@ -29,7 +29,7 @@ export default function SearchBar() {
             placeholder="Search"
           />
           <button
-            className="flex flex-row justify-center items-center text-3xl h-[3rem] rounded-r-full bg-white w-[15%] border-l-[1.5px] border-black hover:bg-[#EA4335] hover:text-white "
+            className="flex flex-row justify-center items-center text-3xl h-[3rem] rounded-r-full bg-white w-[15%] border-l-[1.5px] border-black hover:bg-[#EA4335] hover:text-white hover:border-white "
             type="submit"
           >
             <LiaSearchSolid />
