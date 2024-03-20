@@ -52,7 +52,7 @@ export default function GifsView() {
         {data && (
           <Masonry
             className="flex flex-row w-auto"
-            columnClassName="pl-5 bg-clip-padding-box"
+            columnClassName="pl-2 bg-clip-padding-box"
             breakpointCols={breakpointColumns}
           >
             {data.pages.map((page) =>

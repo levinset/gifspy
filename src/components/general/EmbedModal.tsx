@@ -14,10 +14,10 @@ export default function EmbedModal({ embedUrl, onClose }: ModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="p-8 bg-black rounded-lg opacity-90">
+      <div className="p-8 bg-black rounded-lg opacity-85">
         <div className="flex flex-row justify-end">
           <button
-            className="text-2xl text-white  hover:text-red-500"
+            className="text-2xl text-white hover:text-red-500"
             onClick={onClose}
           >
             <IoClose />

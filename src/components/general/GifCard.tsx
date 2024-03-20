@@ -1,18 +1,22 @@
 import { ExtendedGifType } from "../../types/GifTypes";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
-import { FaRegEye, FaTrash } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { handleToggleFavourite } from "../../utils/handleToggleFavourite";
 import EmbedModal from "./EmbedModal";
 import { useTransition, animated } from "@react-spring/web";
 import { selectHeartAnimationConfig } from "../../config/animationsConfigs";
+import { useNavigate } from "react-router-dom";
 
 //main component
 export default function GifCard(props: ExtendedGifType) {
+  //use navigation
+  const navigate = useNavigate();
   //use state hooks
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showEmbedModal, setShowEmbedModal] = useState<boolean>(false);
   //handle favorite
   const handleFavorite = () => {
     handleToggleFavourite(props.id);
@@ -36,35 +40,39 @@ export default function GifCard(props: ExtendedGifType) {
   )}, ${Math.floor(Math.random() * 256)})`;
   //Define transition animation
   const transitions = useTransition(isFavouriteGif, selectHeartAnimationConfig);
+  //handel navigation to gif
+  const handleGifNavigation = () => {
+    navigate(`/gifspy/${props.id}`);
+  };
 
   return (
     <div className="relative overflow-hidden group" key={props.id}>
       {/* Apply random colorful background */}
       <div className="rounded-lg " style={{ backgroundColor: randomColor }}>
         <img
-          className="z-50 w-full my-2 rounded-lg"
+          className="z-50 w-full my-1 rounded-lg"
           src={props.images.original.url}
           alt={props.title}
         />
       </div>
-      <div className="absolute inset-0 flex-row justify-end hidden my-2 rounded-lg group bg-gradient-to-l from-black to-gray group-hover:flex">
-        <div className="w-[3rem] rounded-r-lg flex flex-col justify-center">
-          <div className="flex flex-col items-center gap-4 py-10 text-2xl text-white">
+      <div className="absolute inset-0 flex-col justify-end hidden my-1 rounded-lg group bg-gradient-to-t from-black to-gray group-hover:flex">
+        <div className="h-[3rem] rounded-r-lg flex flex-col justify-center">
+          <div className="flex flex-row justify-center gap-4 py-10 text-2xl text-white">
             <button onClick={isFavoritePage ? handleDelete : handleFavorite}>
               {isFavoritePage ? (
                 <span className="text-red-600">
-                  <FaTrash />
+                  <IoClose />
                 </span>
               ) : (
                 <>
                   {transitions((style, item) =>
                     item ? (
                       <animated.div style={style}>
-                        <FaHeart className="text-red-600" />
+                        <FaHeart className="text-red-600 hover:scale-110" />
                       </animated.div>
                     ) : (
                       <animated.div style={style}>
-                        <FaRegHeart className="hover:text-red-600" />
+                        <FaRegHeart className="hover:text-red-600 hover:scale-110" />
                       </animated.div>
                     )
                   )}
@@ -72,18 +80,18 @@ export default function GifCard(props: ExtendedGifType) {
               )}
             </button>
             <button className=" hover:text-violet-600 hover:scale-110">
-              <FaCode onClick={() => setShowModal(true)} />
+              <FaCode onClick={() => setShowEmbedModal(true)} />
             </button>
             <button className=" hover:text-violet-600 hover:scale-110">
-              <FaRegEye />
+              <FaRegEye onClick={handleGifNavigation} />
             </button>
           </div>
         </div>
       </div>
-      {showModal && (
+      {showEmbedModal && (
         <EmbedModal
           embedUrl={props.embed_url}
-          onClose={() => setShowModal(false)}
+          onClose={() => setShowEmbedModal(false)}
         />
       )}
     </div>

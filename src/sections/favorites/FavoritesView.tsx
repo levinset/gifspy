@@ -32,7 +32,7 @@ export default function FavoritesView() {
         {favorites.length > 0 && (
           <Masonry
             className="flex flex-row w-auto"
-            columnClassName="pl-5 bg-clip-padding-box"
+            columnClassName="pl-2 bg-clip-padding-box"
             breakpointCols={breakpointColumns}
           >
             {favorites.map((gif: GifType) => (
