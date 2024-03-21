@@ -43,7 +43,7 @@ export default function GifCard(props: ExtendedGifType) {
   const transitions = useTransition(isFavouriteGif, selectHeartAnimationConfig);
   //handel navigation to gif
   const handleGifNavigation = () => {
-    navigate(`/gifspy/${props.id}`);
+    navigate(`/gifspy/gif/${props.id}`);
   };
 
   return (

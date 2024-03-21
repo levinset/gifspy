@@ -26,3 +26,15 @@ export const slideSwitchAnimationConfig = {
   ],
   config: { mass: 1, tension: 500, friction: 50 },
 };
+export const shareAnimationConfig = {
+  from: { scaleY: 1 },
+  loop: {
+    to: [{ scaleY: 1.2 }, { scaleY: 0.9 }],
+  },
+};
+export const embedAnimationConfig = {
+  from: { scaleX: 1 },
+  loop: {
+    to: [{ scaleX: 1.2 }, { scaleX: 0.9 }],
+  },
+};

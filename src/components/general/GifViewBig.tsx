@@ -1,17 +1,47 @@
 //import libaries
 import { GifType } from "../../types/GifTypes";
 import { useSpring, animated } from "@react-spring/web";
-import { heartAnimationConfig } from "../../config/animationsConfigs";
+import {
+  embedAnimationConfig,
+  heartAnimationConfig,
+} from "../../config/animationsConfigs";
+import { shareAnimationConfig } from "../../config/animationsConfigs";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useState } from "react";
-import { IoShareOutline } from "react-icons/io5";
+import { IoShareOutline, IoShare } from "react-icons/io5";
 import { FaCode } from "react-icons/fa6";
+import { handleToggleFavourite } from "../../utils/handleToggleFavourite";
 //main component
+
 export default function GifViewBig(props: GifType) {
-  // State to manage the hover effect
-  const [isHovered, setIsHovered] = useState(false);
+  //useState
+  const [isFavoriteHovered, setIsFavoriteHovered] = useState<boolean>(false);
+  const [isShareHovered, setIsShareHovered] = useState<boolean>(false);
+  const [isEmbedHovered, setIsEmbedHovered] = useState<boolean>(false);
+
+  //check if isFavorites
+  const [isFavourite, setIsFavourite] = useState<boolean>(
+    JSON.parse(localStorage.getItem("favourites") || "[]").includes(props.id)
+  );
   //heart animation config
   const heartAnimation = useSpring(heartAnimationConfig);
+  const shareAnimation = useSpring(shareAnimationConfig);
+  const embedAnimation = useSpring(embedAnimationConfig);
+  //handle favorite
+  const handleFavorite = () => {
+    handleToggleFavourite(props.id);
+    setIsFavourite(!isFavourite);
+  };
+  //manage icons changes
+  const heartIcon =
+    isFavoriteHovered || isFavourite ? (
+      <FaHeart className="text-red-600" />
+    ) : (
+      <FaRegHeart />
+    );
+  const shareIcon = isShareHovered ? <IoShare /> : <IoShareOutline />;
+
+  //
   return (
     <>
       <div className="container w-full p-2 mx-auto text-white ">
@@ -20,15 +50,15 @@ export default function GifViewBig(props: GifType) {
             <div className="flex flex-row gap-2 ">
               <img className=" w-[4rem] " src={props.user?.avatar_url} alt="" />
               <div className=" w-fit">
-                <p> {props.user?.username} </p>
-                <p> {props.user?.display_name} </p>
+                <p className="font-bold "> {props.user?.username} </p>
+                <p className="text-gray-400 "> {props.user?.display_name} </p>
               </div>
             </div>
             <div>
-              {props.user.description && (
-                <p className="text-sm font-semibold">User Description:</p>
+              {props.user?.description && (
+                <p className="font-semibold">Who am I?</p>
               )}
-              <p> {props.user?.description} </p>
+              <p className="text-sm "> {props.user?.description} </p>
             </div>
           </div>
           <div className="flex flex-col justify-center w-full ">
@@ -38,27 +68,42 @@ export default function GifViewBig(props: GifType) {
           <div className=" w-[10rem] ">
             <div className="flex flex-col gap-3 pt-8 pl-8 text-2xl ">
               <button
+                onClick={handleFavorite}
                 className={`flex flex-row items-center gap-2 ${
-                  isHovered ? "scale-110" : ""
+                  isFavoriteHovered ? "scale-110" : ""
                 } `}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                onMouseEnter={() => setIsFavoriteHovered(true)}
+                onMouseLeave={() => setIsFavoriteHovered(false)}
               >
-                {isHovered ? (
-                  <animated.div style={heartAnimation}>
-                    <FaHeart className="text-red-600" />
-                  </animated.div>
-                ) : (
-                  <FaRegHeart />
-                )}
+                <animated.div style={heartAnimation}>{heartIcon}</animated.div>
+
                 <span className="pb-1 text-base font-semibold ">Favorite</span>
               </button>
-              <button className="flex flex-row items-center gap-2 hover:scale-110">
-                <IoShareOutline />
-                <span className="text-base font-semibold ">Share</span>
+              <button
+                onMouseEnter={() => {
+                  setIsShareHovered(true);
+                }}
+                onMouseLeave={() => {
+                  setIsShareHovered(false);
+                }}
+                className="flex flex-row items-center gap-2 group "
+              >
+                <animated.div style={isShareHovered ? shareAnimation : {}}>
+                  {shareIcon}
+                </animated.div>
+
+                <span className="text-base font-semibold group-hover:scale-110 ">
+                  Share
+                </span>
               </button>
-              <button className="flex flex-row items-center gap-2 hover:scale-110">
-                <FaCode />
+              <button
+                onMouseEnter={() => setIsEmbedHovered(true)}
+                onMouseLeave={() => setIsEmbedHovered(false)}
+                className="flex flex-row items-center gap-2 hover:scale-110"
+              >
+                <animated.div style={isEmbedHovered ? embedAnimation : {}}>
+                  <FaCode />
+                </animated.div>
                 <span className="pb-1 text-base font-semibold ">Embed</span>
               </button>
             </div>

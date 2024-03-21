@@ -13,11 +13,15 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "gifspy/gif/",
+    element: <Home />,
+  },
+  {
     path: "gifspy/favorites",
     element: <Favorites />,
   },
   {
-    path: "gifspy/:id",
+    path: "gifspy/gif/:id",
     element: <GifPage />,
   },
 ]);
