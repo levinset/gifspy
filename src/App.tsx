@@ -10,23 +10,23 @@ import About from "./pages/About";
 // Routes
 const router = createBrowserRouter([
   {
-    path: "gifspy",
+    path: "/gifspy",
     element: <Home />,
   },
   {
-    path: "gifspy/gif/",
+    path: "/gifspy/gif/",
     element: <Home />,
   },
   {
-    path: "gifspy/favorites",
+    path: "/gifspy/favorites",
     element: <Favorites />,
   },
   {
-    path: "gifspy/gif/:id",
+    path: "/gifspy/gif/:id",
     element: <GifPage />,
   },
   {
-    path: "gifspy/about",
+    path: "/gifspy/about",
     element: <About />,
   },
 ]);
@@ -36,7 +36,7 @@ function App() {
   return (
     <SearchProvider>
       <ToggleSwitchProvider>
-        <RouterProvider router={router} />;
+        <RouterProvider router={router} />
       </ToggleSwitchProvider>
     </SearchProvider>
   );
