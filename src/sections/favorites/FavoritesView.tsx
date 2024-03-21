@@ -5,13 +5,13 @@ import { GifType } from "../../types/GifTypes";
 import Masonry from "react-masonry-css";
 import { breakpointColumns } from "../../config/breakpointColumns";
 import { useGetAllFavorites } from "../../hooks/query/useGetAllFavorites";
+import { ThreeDot } from "react-loading-indicators";
 
+//main component
 export default function FavoritesView() {
   const [favorites, setFavorites] = useState<GifType[]>([]);
-
   // Fetch favorites initially
-  const { data } = useGetAllFavorites();
-
+  const { data, isLoading, error } = useGetAllFavorites();
   // Update favorites state when data changes
   useEffect(() => {
     if (data) {
@@ -46,6 +46,19 @@ export default function FavoritesView() {
           </Masonry>
         )}
       </div>
+      {isLoading && (
+        <div className="fixed transform -translate-x-1/2 -translate-y-1/2 top-3/4 left-1/2">
+          <ThreeDot
+            variant="bob"
+            color="#EA4335"
+            size="large"
+            text="Loding"
+            textColor=""
+          />
+        </div>
+      )}
+
+      {error && <p>{error?.message}</p>}
     </div>
   );
 }

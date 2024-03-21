@@ -1,4 +1,4 @@
-import Footer from "../components/general/Footer";
+import FooterComponent from "../components/general/FooterComponent";
 import NavBar from "../components/general/NavBar";
 import FavoriteHero from "../sections/favorites/FavoriteHero";
 import FavoritesView from "../sections/favorites/FavoritesView";
@@ -9,7 +9,7 @@ export default function Favorites() {
       <NavBar />
       <FavoriteHero />
       <FavoritesView />
-      <Footer />
+      <FooterComponent />
     </>
   );
 }

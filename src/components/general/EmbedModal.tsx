@@ -25,7 +25,7 @@ export default function EmbedModal({ embedUrl, onClose }: ModalProps) {
       >
         <div className="flex flex-row justify-end">
           <button
-            className="text-2xl text-white hover:text-red-500"
+            className="text-2xl text-white hover:scale-110 hover:text-red-500"
             onClick={onClose}
           >
             <IoClose />
@@ -34,7 +34,7 @@ export default function EmbedModal({ embedUrl, onClose }: ModalProps) {
         <p className="mb-4 text-white">Embed URL:</p>
         <div className="flex flex-row">
           <input
-            className="h-[3rem] rounded-l-full w-full px-8 focus:outline-none "
+            className="h-[3rem] rounded-l-full text-black w-full px-8 focus:outline-none "
             type="text"
             value={embedUrl}
             readOnly

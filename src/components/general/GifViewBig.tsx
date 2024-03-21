@@ -11,14 +11,18 @@ import { useState } from "react";
 import { IoShareOutline, IoShare } from "react-icons/io5";
 import { FaCode } from "react-icons/fa6";
 import { handleToggleFavourite } from "../../utils/handleToggleFavourite";
-//main component
+import { Avatar } from "flowbite-react";
+import EmbedModal from "./EmbedModal";
+import ShareModal from "./ShareModal";
 
+//main component
 export default function GifViewBig(props: GifType) {
   //useState
   const [isFavoriteHovered, setIsFavoriteHovered] = useState<boolean>(false);
   const [isShareHovered, setIsShareHovered] = useState<boolean>(false);
   const [isEmbedHovered, setIsEmbedHovered] = useState<boolean>(false);
-
+  const [showEmbedModal, setShowEmbedModal] = useState<boolean>(false);
+  const [showShareModal, setShowShareModal] = useState<boolean>(false);
   //check if isFavorites
   const [isFavourite, setIsFavourite] = useState<boolean>(
     JSON.parse(localStorage.getItem("favourites") || "[]").includes(props.id)
@@ -48,7 +52,19 @@ export default function GifViewBig(props: GifType) {
         <div className="flex flex-row">
           <div className="flex flex-col pt-8 pr-8 w-[20rem] gap-5  ">
             <div className="flex flex-row gap-2 ">
-              <img className=" w-[4rem] " src={props.user?.avatar_url} alt="" />
+              {props.user?.avatar_url ? (
+                <img
+                  className=" w-[4rem] "
+                  src={props.user?.avatar_url}
+                  alt="userAvatar"
+                />
+              ) : (
+                <div className="flex flex-row gap-2 ">
+                  <Avatar />
+                  <p>This Gif has no user</p>
+                </div>
+              )}
+
               <div className=" w-fit">
                 <p className="font-bold "> {props.user?.username} </p>
                 <p className="text-gray-400 "> {props.user?.display_name} </p>
@@ -80,6 +96,7 @@ export default function GifViewBig(props: GifType) {
                 <span className="pb-1 text-base font-semibold ">Favorite</span>
               </button>
               <button
+                onClick={() => setShowShareModal(true)}
                 onMouseEnter={() => {
                   setIsShareHovered(true);
                 }}
@@ -97,6 +114,7 @@ export default function GifViewBig(props: GifType) {
                 </span>
               </button>
               <button
+                onClick={() => setShowEmbedModal(true)}
                 onMouseEnter={() => setIsEmbedHovered(true)}
                 onMouseLeave={() => setIsEmbedHovered(false)}
                 className="flex flex-row items-center gap-2 hover:scale-110"
@@ -109,6 +127,18 @@ export default function GifViewBig(props: GifType) {
             </div>
           </div>
         </div>
+        {showEmbedModal && (
+          <EmbedModal
+            embedUrl={props.embed_url}
+            onClose={() => setShowEmbedModal(false)}
+          />
+        )}
+        {showShareModal && (
+          <ShareModal
+            images={props.images}
+            onClose={() => setShowShareModal(false)}
+          />
+        )}
       </div>
     </>
   );

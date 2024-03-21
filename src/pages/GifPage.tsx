@@ -3,21 +3,31 @@ import { useParams } from "react-router-dom";
 import { useGetDataById } from "./../hooks/query/useGetDataById";
 import { GifType } from "../types/GifTypes";
 import NavBar from "../components/general/NavBar";
-import Footer from "../components/general/Footer";
 import Masonry from "react-masonry-css";
 import { useGetAllData } from "../hooks/query/useGetAllData";
 import GifCard from "../components/general/GifCard";
 import { breakpointColumns } from "../config/breakpointColumns";
 import { useEffect } from "react";
+import { ThreeDot } from "react-loading-indicators";
+import FooterComponent from "../components/general/FooterComponent";
 
 //main component
 export default function GifPage() {
   //get gif is
   const { id } = useParams();
   //queries
-  const { data: gifData, refetch } = useGetDataById(id);
-  const { data: relatedData } = useGetAllData("gifs", gifData && gifData.title);
-  console.log(relatedData);
+  const {
+    data: gifData,
+    refetch,
+    isLoading: gifIsLoading,
+    error: gifError,
+  } = useGetDataById(id);
+  const {
+    data: relatedData,
+    isLoading: relatedLoading,
+    error: relatedError,
+  } = useGetAllData("gifs", gifData && gifData.title);
+
   //hande change in id
   useEffect(() => {
     refetch();
@@ -54,7 +64,25 @@ export default function GifPage() {
           )}
         </div>
       </div>
-      <Footer />
+      {(gifIsLoading || relatedLoading) && (
+        <div className="fixed transform -translate-x-1/2 -translate-y-1/2 top-3/4 left-1/2">
+          <ThreeDot
+            variant="bob"
+            color="#EA4335"
+            size="large"
+            text="Loding"
+            textColor=""
+          />
+        </div>
+      )}
+
+      {(gifError || relatedError) && (
+        <p>
+          {gifError?.message}
+          {relatedError?.message}{" "}
+        </p>
+      )}
+      <FooterComponent />
     </>
   );
 }

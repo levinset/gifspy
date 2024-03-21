@@ -5,6 +5,7 @@ import Favorites from "./pages/Favorites";
 import { SearchProvider } from "./context/SearchContext";
 import { ToggleSwitchProvider } from "./context/ToggleSwithContext";
 import GifPage from "./pages/GifPage";
+import About from "./pages/About";
 
 // Routes
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "gifspy/gif/:id",
     element: <GifPage />,
+  },
+  {
+    path: "gifspy/about",
+    element: <About />,
   },
 ]);
 

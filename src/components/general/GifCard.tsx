@@ -9,6 +9,7 @@ import EmbedModal from "./EmbedModal";
 import { useTransition, animated } from "@react-spring/web";
 import { selectHeartAnimationConfig } from "../../config/animationsConfigs";
 import { useNavigate } from "react-router-dom";
+import DeleteConfirmationModal from "../favorites/DeletConfirmationModal";
 
 //main component
 export default function GifCard(props: ExtendedGifType) {
@@ -17,7 +18,7 @@ export default function GifCard(props: ExtendedGifType) {
   //use state hooks
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const [showEmbedModal, setShowEmbedModal] = useState<boolean>(false);
-
+  const [showDeleteModal, setShowDeletModal] = useState<boolean>(false);
   //handle favorite
   const handleFavorite = () => {
     handleToggleFavourite(props.id);
@@ -59,11 +60,15 @@ export default function GifCard(props: ExtendedGifType) {
       <div className="absolute inset-0 flex-col justify-end hidden my-1 rounded-lg group bg-gradient-to-t from-black to-gray group-hover:flex">
         <div className="h-[3rem] rounded-r-lg flex flex-col justify-center">
           <div className="flex flex-row justify-center gap-4 py-10 text-2xl text-white">
-            <button onClick={isFavoritePage ? handleDelete : handleFavorite}>
+            <button
+              onClick={
+                isFavoritePage ? () => setShowDeletModal(true) : handleFavorite
+              }
+            >
               {isFavoritePage ? (
-                <span className="text-red-600">
+                <div className=" hover:text-red-600 hover:scale-125">
                   <IoClose />
-                </span>
+                </div>
               ) : (
                 <>
                   {transitions((style, item) =>
@@ -93,6 +98,12 @@ export default function GifCard(props: ExtendedGifType) {
         <EmbedModal
           embedUrl={props.embed_url}
           onClose={() => setShowEmbedModal(false)}
+        />
+      )}
+      {showDeleteModal && (
+        <DeleteConfirmationModal
+          handleDelete={handleDelete}
+          onClose={() => setShowDeletModal(false)}
         />
       )}
     </div>

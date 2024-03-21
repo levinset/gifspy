@@ -24,7 +24,7 @@ export default function NavBar() {
               Home
             </Link>
 
-            <Link className="hover:underline" to="about">
+            <Link className="hover:underline" to="/gifspy/about">
               About
             </Link>
 
