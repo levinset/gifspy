@@ -63,7 +63,11 @@ export default function Hero() {
               <SearchBar />
             </div>
           </div>
-          <div className="flex flex-col items-center justify-end pl-[2rem] py-[2rem] max-sm:py-0 max-sm:pl-3 ">
+          <div
+            className={`flex flex-col items-center justify-end pl-[2rem] py-[2rem] max-sm:py-0 max-sm:pl-3 ${
+              isSticky ? "pl-0" : ""
+            } `}
+          >
             <ToggleSwitch />
           </div>
         </div>
