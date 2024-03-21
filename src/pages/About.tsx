@@ -7,7 +7,7 @@ export default function About() {
   return (
     <>
       <NavBar />
-      <div className="container flex justify-center h-screen mx-auto mt-20">
+      <div className="container flex justify-center mx-auto mt-20">
         <div className="flex flex-col items-center max-sm:gap-0">
           <h1
             className={`text-xl font-semibold text-white max-sm:text-center `}
