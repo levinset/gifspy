@@ -7,8 +7,8 @@ export default function About() {
   return (
     <>
       <NavBar />
-      <div className="container flex items-center justify-center h-screen mx-auto">
-        <div className="flex flex-col items-center gap-4 max-sm:gap-0">
+      <div className="container flex justify-center h-screen mx-auto mt-20">
+        <div className="flex flex-col items-center max-sm:gap-0">
           <h1
             className={`text-xl font-semibold text-white max-sm:text-center `}
           >
@@ -19,7 +19,7 @@ export default function About() {
           >
             gifspy
           </p>
-          <p className="text-2xl text-white">
+          <p className="text-2xl text-white max-sm:text-center">
             GifSpy is a webApp for Searching, Saving and sharing Gifs and
             Stickers
           </p>
