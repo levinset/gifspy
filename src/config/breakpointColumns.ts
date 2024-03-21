@@ -1,4 +1,4 @@
-//column responsiveness
+//column responsiveness for Masonry
 export const breakpointColumns = {
   default: 5,
   1400: 4,

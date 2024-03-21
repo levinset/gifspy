@@ -7,7 +7,8 @@ import {
   BsInstagram,
   BsTwitter,
 } from "react-icons/bs";
-//
+
+//main component
 export default function FooterComponent() {
   return (
     <Footer className=" bg-[#212121] ">

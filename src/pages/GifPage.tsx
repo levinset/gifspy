@@ -1,3 +1,4 @@
+//import libaries and components
 import GifViewBig from "../components/general/GifViewBig";
 import { useParams } from "react-router-dom";
 import { useGetDataById } from "./../hooks/query/useGetDataById";
@@ -75,7 +76,6 @@ export default function GifPage() {
           />
         </div>
       )}
-
       {(gifError || relatedError) && (
         <p>
           {gifError?.message}

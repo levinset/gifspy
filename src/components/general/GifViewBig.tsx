@@ -14,6 +14,7 @@ import { handleToggleFavourite } from "../../utils/handleToggleFavourite";
 import { Avatar } from "flowbite-react";
 import EmbedModal from "./EmbedModal";
 import ShareModal from "./ShareModal";
+import Snackbar from "@mui/material/Snackbar";
 
 //main component
 export default function GifViewBig(props: GifType) {
@@ -23,11 +24,12 @@ export default function GifViewBig(props: GifType) {
   const [isEmbedHovered, setIsEmbedHovered] = useState<boolean>(false);
   const [showEmbedModal, setShowEmbedModal] = useState<boolean>(false);
   const [showShareModal, setShowShareModal] = useState<boolean>(false);
+  const [showSnackbar, setShowSnackBar] = useState<boolean>(false);
   //check if isFavorites
   const [isFavourite, setIsFavourite] = useState<boolean>(
     JSON.parse(localStorage.getItem("favourites") || "[]").includes(props.id)
   );
-  //heart animation config
+  //animation configs
   const heartAnimation = useSpring(heartAnimationConfig);
   const shareAnimation = useSpring(shareAnimationConfig);
   const embedAnimation = useSpring(embedAnimationConfig);
@@ -35,6 +37,7 @@ export default function GifViewBig(props: GifType) {
   const handleFavorite = () => {
     handleToggleFavourite(props.id);
     setIsFavourite(!isFavourite);
+    setShowSnackBar(true);
   };
   //manage icons changes
   const heartIcon =
@@ -44,7 +47,16 @@ export default function GifViewBig(props: GifType) {
       <FaRegHeart />
     );
   const shareIcon = isShareHovered ? <IoShare /> : <IoShareOutline />;
-  console.log(props.images);
+  //handle Snackbar
+  const handleClose = (
+    _event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowSnackBar(false);
+  };
   //
   return (
     <>
@@ -143,6 +155,16 @@ export default function GifViewBig(props: GifType) {
             onClose={() => setShowShareModal(false)}
           />
         )}
+        <Snackbar
+          open={showSnackbar}
+          autoHideDuration={5000}
+          message={
+            isFavourite
+              ? "Added to you Favorites"
+              : "Deleted from your Favorites"
+          }
+          onClose={handleClose}
+        />
       </div>
     </>
   );

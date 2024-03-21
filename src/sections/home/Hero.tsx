@@ -27,7 +27,7 @@ export default function Hero() {
   return (
     <>
       <div
-        className={`bg-[#212121] sticky top-0 z-50 ${
+        className={`bg-[#212121] sticky px-2 top-0 z-50 ${
           isSticky ? "sticky-nav" : ""
         } max-sm:px-4 max-sm:pt-2 `}
       >

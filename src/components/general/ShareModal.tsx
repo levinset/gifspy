@@ -1,21 +1,24 @@
+//import libararies and components
 import { useState, useEffect } from "react";
 import { ShareModalProps } from "../../types/ModalTypes";
 import { IoClose } from "react-icons/io5";
 
+//main component
 export default function ShareModal({ images, onClose }: ShareModalProps) {
+  //use states
   const [copied, setCopied] = useState(false);
   const [selectedButton, setSelectedButton] = useState("Original");
   const [urlToCopy, setUrlToCopy] = useState("");
-
+  //handle compy to clipboard
   const copyToClipboard = () => {
     navigator.clipboard.writeText(urlToCopy);
     setCopied(true);
   };
-
+  //handle copy button when selected changes
   useEffect(() => {
     setCopied(false);
   }, [selectedButton]);
-
+  //calculate image sizes
   const SmallSize = images.downsized_still?.size
     ? (Number(images.downsized_still.size) / 100000).toFixed(1)
     : null;
@@ -28,8 +31,8 @@ export default function ShareModal({ images, onClose }: ShareModalProps) {
   const Mp4Size = images.original_mp4?.mp4_size
     ? (Number(images.original_mp4.mp4_size) / 1000000).toFixed(1)
     : null;
-  //
 
+  //
   return (
     <div
       onClick={onClose}

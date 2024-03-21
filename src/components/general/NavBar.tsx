@@ -16,7 +16,7 @@ export default function NavBar() {
   //
   return (
     <>
-      <div className="bg-[#212121] py-6 border-b-[1px] max-sm:px-4 max-sm:py-2 2xl:text-2xl 2xl:py-8 ">
+      <div className="bg-[#212121] px-2 py-6 border-b-[1px] max-sm:px-4 max-sm:py-2 2xl:text-2xl 2xl:py-8 ">
         <div className="container flex flex-row items-center justify-between mx-auto text-white">
           <div>
             <img src={Logo} alt="Logo" />

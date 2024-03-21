@@ -1,3 +1,5 @@
+//imported libraries and components
+import * as React from "react";
 import { ExtendedGifType } from "../../types/GifTypes";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
@@ -10,6 +12,7 @@ import { useTransition, animated } from "@react-spring/web";
 import { selectHeartAnimationConfig } from "../../config/animationsConfigs";
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmationModal from "../favorites/DeletConfirmationModal";
+import Snackbar from "@mui/material/Snackbar";
 
 //main component
 export default function GifCard(props: ExtendedGifType) {
@@ -46,7 +49,17 @@ export default function GifCard(props: ExtendedGifType) {
   const handleGifNavigation = () => {
     navigate(`/gifspy/gif/${props.id}`);
   };
-
+  //handle Snackbar
+  const handleClose = (
+    _event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setIsFavourite(false);
+  };
+  //
   return (
     <div className="relative overflow-hidden group" key={props.id}>
       {/* Apply random colorful background */}
@@ -106,6 +119,16 @@ export default function GifCard(props: ExtendedGifType) {
           onClose={() => setShowDeletModal(false)}
         />
       )}
+      <Snackbar
+        open={isFavourite}
+        autoHideDuration={5000}
+        message={
+          isFavouriteGif
+            ? "Added to you Favorites"
+            : "Deleted from your Favorites"
+        }
+        onClose={handleClose}
+      />
     </div>
   );
 }

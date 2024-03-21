@@ -49,7 +49,7 @@ export default function GifsView() {
 
   return (
     <div className="bg-[#212121] ">
-      <div className="container pt-10 mx-auto max-sm:pr-2">
+      <div className="container pt-10 pr-2 mx-auto">
         {data && (
           <Masonry
             className="flex flex-row w-auto"

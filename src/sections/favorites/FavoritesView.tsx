@@ -28,7 +28,7 @@ export default function FavoritesView() {
 
   return (
     <div className="bg-[#212121] ">
-      <div className="container mx-auto max-sm:pr-2">
+      <div className="container pr-2 mx-auto">
         {favorites.length > 0 && (
           <Masonry
             className="flex flex-row w-auto"

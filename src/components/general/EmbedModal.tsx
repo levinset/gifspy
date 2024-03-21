@@ -5,13 +5,15 @@ import { IoClose } from "react-icons/io5";
 
 //main componnet
 export default function EmbedModal({ embedUrl, onClose }: ModalProps) {
+  //use states
   const [copied, setCopied] = useState(false);
-
+  //handle copy to clipboard
   const copyToClipboard = () => {
     navigator.clipboard.writeText(embedUrl);
     setCopied(true);
   };
 
+  //
   return (
     <div
       onClick={onClose}

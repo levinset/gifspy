@@ -1,4 +1,5 @@
 // Define the animation config
+//animation for heart
 export const heartAnimationConfig = {
   loop: {
     reverse: true,
@@ -7,6 +8,7 @@ export const heartAnimationConfig = {
   },
   config: { tension: 150, friction: 10 },
 };
+//animation slecting heart
 export const selectHeartAnimationConfig = {
   from: { opacity: 0, transform: "translateY(-50px)" },
   enter: { opacity: 1, transform: "translateY(0px)" },
@@ -17,6 +19,7 @@ export const selectHeartAnimationConfig = {
   config: { mass: 1, tension: 500, friction: 50 },
 };
 
+//sliding toggle key animation
 export const slideSwitchAnimationConfig = {
   from: { opacity: 1, transform: "translateX(-100%)" },
   enter: { opacity: 1, transform: "translateX(0%)" },
@@ -26,12 +29,14 @@ export const slideSwitchAnimationConfig = {
   ],
   config: { mass: 1, tension: 500, friction: 50 },
 };
+//share icone animation
 export const shareAnimationConfig = {
   from: { scaleY: 1 },
   loop: {
     to: [{ scaleY: 1.2 }, { scaleY: 0.9 }],
   },
 };
+//embed code animation
 export const embedAnimationConfig = {
   from: { scaleX: 1 },
   loop: {
