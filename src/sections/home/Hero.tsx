@@ -1,32 +1,71 @@
-//import libaraies and components
+//import libarie and components
+import { useState, useEffect } from "react";
 import Hand from "../../assets/images/hand.png";
 import SearchBar from "../../components/home/SearchBar";
 import ToggleSwitch from "../../components/home/ToggleSwitch";
 
 //main component
 export default function Hero() {
-  //return tsx
+  //use state hook
+  const [isSticky, setIsSticky] = useState(false);
+  //maneg sticky scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  //tsx
   return (
     <>
-      <div className="bg-[#212121] py-10">
-        <div className="container flex flex-row justify-between mx-auto ">
-          <div className="mx-12">
-            <img src={Hand} alt="Hnad" />
+      <div
+        className={`bg-[#212121] sticky top-0 z-50 ${
+          isSticky ? "sticky-nav" : ""
+        } max-sm:px-4 max-sm:pt-2 `}
+      >
+        <div className="container flex flex-row justify-between mx-auto">
+          <div
+            className={`${
+              isSticky ? "hidden" : ""
+            }  flex flex-col max-sm:hidden`}
+          >
+            <img src={Hand} alt="Hand" />
           </div>
-          <div className="flex flex-col justify-center w-full gap-10 ">
-            <div className="flex flex-col items-center gap-4">
-              <h1 className="text-xl font-semibold text-white ">
+
+          <div className="flex flex-col justify-center w-full gap-10 max-sm:gap-2">
+            <div className="flex flex-col items-center gap-4 max-sm:gap-0">
+              <h1
+                className={`text-xl font-semibold text-white max-sm:text-center ${
+                  isSticky ? "hidden" : ""
+                } `}
+              >
                 GIFspy Moments Await: Find, Share, and Delight!
               </h1>
-              <p className="font-bold text-transparent uppercase custom-gradient text-8xl bg-gradient-to-r bg-clip-text w-fit">
+              <p
+                className={`font-bold text-transparent uppercase custom-gradient bg-gradient-to-r bg-clip-text max-sm:text-6xl ${
+                  isSticky
+                    ? "text-6xl pl-[5rem] justify-center"
+                    : "text-8xl text-center"
+                }`}
+              >
                 gifspy
               </p>
             </div>
-            <div className="">
+            <div>
               <SearchBar />
             </div>
           </div>
-          <ToggleSwitch />
+          <div className="flex flex-col items-center justify-end pl-[2rem] py-[2rem] max-sm:py-0 max-sm:pl-3 ">
+            <ToggleSwitch />
+          </div>
         </div>
       </div>
     </>

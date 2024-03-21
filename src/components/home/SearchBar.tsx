@@ -17,9 +17,9 @@ export default function SearchBar() {
   };
   return (
     <>
-      <div>
+      <div className="flex flex-row w-full ">
         <form
-          className="flex flex-row justify-between "
+          className="flex flex-row justify-between w-full "
           onSubmit={handleSubmit(onSubmit)}
         >
           <input

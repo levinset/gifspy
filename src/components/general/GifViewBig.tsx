@@ -44,13 +44,13 @@ export default function GifViewBig(props: GifType) {
       <FaRegHeart />
     );
   const shareIcon = isShareHovered ? <IoShare /> : <IoShareOutline />;
-
+  console.log(props.images);
   //
   return (
     <>
       <div className="container w-full p-2 mx-auto text-white ">
         <div className="flex flex-row">
-          <div className="flex flex-col pt-8 pr-8 w-[20rem] gap-5  ">
+          <div className="flex flex-col pt-8 pr-8 w-[20rem] gap-5 max-sm:hidden  ">
             <div className="flex flex-row gap-2 ">
               {props.user?.avatar_url ? (
                 <img
@@ -79,7 +79,7 @@ export default function GifViewBig(props: GifType) {
           </div>
           <div className="flex flex-col justify-center w-full ">
             <p> {props?.title} </p>
-            <img src={props.images.original.url} alt="" />
+            <img src={props.images.original.url} alt="gif and stikcer" />
           </div>
           <div className=" w-[10rem] ">
             <div className="flex flex-col gap-3 pt-8 pl-8 text-2xl ">
@@ -91,7 +91,11 @@ export default function GifViewBig(props: GifType) {
                 onMouseEnter={() => setIsFavoriteHovered(true)}
                 onMouseLeave={() => setIsFavoriteHovered(false)}
               >
-                <animated.div style={heartAnimation}>{heartIcon}</animated.div>
+                <animated.div
+                  style={isFavoriteHovered || isFavourite ? heartAnimation : {}}
+                >
+                  {heartIcon}
+                </animated.div>
 
                 <span className="pb-1 text-base font-semibold ">Favorite</span>
               </button>

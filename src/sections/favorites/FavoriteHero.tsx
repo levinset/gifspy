@@ -13,7 +13,7 @@ export default function FavoriteHero() {
           </div>
 
           <div className="flex flex-row items-center justify-center mr-10">
-            <p className="font-bold text-transparent custom-gradient text-8xl bg-gradient-to-r bg-clip-text w-fit ">
+            <p className="font-bold text-transparent custom-gradient text-8xl bg-gradient-to-r bg-clip-text w-fit max-sm:text-6xl ">
               Favorites
             </p>
           </div>

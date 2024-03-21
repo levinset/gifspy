@@ -16,23 +16,24 @@ export default function ShareModal({ images, onClose }: ShareModalProps) {
     setCopied(false);
   }, [selectedButton]);
 
-  const SmallSize = images.downsized_small?.mp4_size
-    ? (Number(images.downsized_small.mp4_size) / 1000000).toFixed(1)
+  const SmallSize = images.downsized_still?.size
+    ? (Number(images.downsized_still.size) / 100000).toFixed(1)
     : null;
-  const SocialSize = images.downsized_large?.mp4_size
-    ? (Number(images.downsized_large.mp4_size) / 1000000).toFixed(1)
+  const SocialSize = images.downsized_medium?.size
+    ? (Number(images.downsized_medium.size) / 1000000).toFixed(1)
     : null;
-  const OriginalSize = images.original?.mp4_size
-    ? (Number(images.original.mp4_size) / 1000000).toFixed(1)
+  const OriginalSize = images.original?.size
+    ? (Number(images.original.size) / 1000000).toFixed(1)
     : null;
   const Mp4Size = images.original_mp4?.mp4_size
     ? (Number(images.original_mp4.mp4_size) / 1000000).toFixed(1)
     : null;
+  //
 
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-50 flex items-center justify-center pl-[8rem] bg-black bg-opacity-50 max-sm:pr-2 max-sm:pl-2"
     >
       <div
         onClick={(e) => {
@@ -50,12 +51,14 @@ export default function ShareModal({ images, onClose }: ShareModalProps) {
           </button>
         </div>
         <hr />
-        <div className="flex flex-row gap-4 px-2 mt-10 text-sm opacity-60 ">
-          {images.downsized_small.url && (
+        <div className="flex flex-row gap-4 px-2 mt-10 text-sm opacity-60">
+          {images.downsized_still?.url && (
             <button
               onClick={() => {
-                setUrlToCopy(images.downsized_small.url);
-                setSelectedButton("Small");
+                if (images.downsized_still?.url) {
+                  setUrlToCopy(images.downsized_still.url);
+                  setSelectedButton("Small");
+                }
               }}
               className={`font-bold ${
                 selectedButton === "Small" ? "underline" : ""
@@ -64,24 +67,28 @@ export default function ShareModal({ images, onClose }: ShareModalProps) {
               Small: {SmallSize}MB
             </button>
           )}
-          {images.downsized_large.url && (
+          {images.downsized_medium?.url && (
             <button
               onClick={() => {
-                setUrlToCopy(images.downsized_large.url);
-                setSelectedButton("Social");
+                if (images.downsized_medium?.url) {
+                  setUrlToCopy(images.downsized_medium.url);
+                  setSelectedButton("Social");
+                }
               }}
               className={`font-bold ${
                 selectedButton === "Social" ? "underline" : ""
               }`}
             >
-              Social: {SocialSize}MB
+              Social{SocialSize ? `:${SocialSize}MB` : ""}
             </button>
           )}
-          {images.original.url && (
+          {images.original?.url && (
             <button
               onClick={() => {
-                setUrlToCopy(images.original.url);
-                setSelectedButton("Original");
+                if (images.original?.url) {
+                  setUrlToCopy(images.original.url);
+                  setSelectedButton("Original");
+                }
               }}
               className={`font-bold ${
                 selectedButton === "Original" ? "underline" : ""
@@ -90,11 +97,13 @@ export default function ShareModal({ images, onClose }: ShareModalProps) {
               Original: {OriginalSize}MB
             </button>
           )}
-          {images.original_mp4.url && (
+          {images.original_mp4?.mp4 && (
             <button
               onClick={() => {
-                setUrlToCopy(images.original_mp4.url);
-                setSelectedButton("MP4");
+                if (images.original_mp4?.mp4) {
+                  setUrlToCopy(images.original_mp4.mp4);
+                  setSelectedButton("MP4");
+                }
               }}
               className={`font-bold ${
                 selectedButton === "MP4" ? "underline" : ""
@@ -104,6 +113,7 @@ export default function ShareModal({ images, onClose }: ShareModalProps) {
             </button>
           )}
         </div>
+
         <div className="flex flex-row justify-center mt-5 ">
           <button
             className="p-2 px-8 font-semibold text-white rounded-full bg-violet-500 hover:bg-violet-600"
